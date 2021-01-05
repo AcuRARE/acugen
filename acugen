@@ -1,0 +1,82 @@
+#!/bin/sh
+
+ProgName=$(basename $0)
+OUTDIR=""
+  
+sub_help(){
+    echo "Usage: $ProgName <subcommand> [options]\n"
+    echo ""
+    echo "Subcommands:"
+    echo "    single   {read_1} {read_2}"
+    echo "    batch    {directory}"
+    echo ""
+}
+  
+sub_single(){
+
+    while getopts ho: opt; do
+    shift
+    case $opt in 
+        h) sub_help; exit ;;
+        o) NAME=${OPTARG}; shift ;;
+        :) echo "Missing argument for option -$OPTARG"; exit 1;;
+       \?) echo "Unknown option -$OPTARG"; exit 1;;
+    esac
+    done
+
+    if [[ $# -ne 2 ]]
+    then
+    echo "Needs only both R1 and R2 files."
+    else
+    if [[ $NAME != "" ]]
+    then
+    echo $1 $2 $NAME
+    else
+    echo $1 $2
+    fi
+    fi
+
+}
+  
+sub_batch(){
+
+     while getopts ho: opt; do
+    shift
+    case $opt in 
+        h) sub_help; exit ;;
+        o) NAME=${OPTARG}; shift ;;
+        :) echo "Missing argument for option -$OPTARG"; exit 1;;
+       \?) echo "Unknown option -$OPTARG"; exit 1;;
+    esac
+    done
+
+    if [[ $# -ne 1 ]]
+    then
+    echo "Needs only path to file directory."
+    else
+    if [[ $NAME != "" ]]
+    then
+    echo $1 $NAME
+    else
+    echo $1
+    fi
+    fi
+}
+  
+
+
+subcommand=$1
+case $subcommand in
+    "" | "-h" | "--help")
+        sub_help
+        ;;
+    *)
+        shift
+        sub_${subcommand} $@
+        if [ $? = 127 ]; then
+            echo "Error: '$subcommand' is not a known subcommand." >&2
+            echo "       Run '$ProgName --help' for a list of known subcommands." >&2
+            exit 1
+        fi
+        ;;
+esac
