@@ -30,9 +30,9 @@ sub_single(){
     else
     if [[ $NAME != "" ]]
     then
-    echo $1 $2 $NAME
+    python /workspace/acugen/acugen_main.py $1 $2 $NAME
     else
-    echo $1 $2
+    python /workspace/acugen/acugen_main.py $1 $2
     fi
     fi
 
@@ -56,9 +56,9 @@ sub_batch(){
     else
     if [[ $NAME != "" ]]
     then
-    echo $1 $NAME
+    python /workspace/acugen/acugen_batch.py $1 $NAME
     else
-    echo $1
+    python /workspace/acugen/acugen_batch.py $1
     fi
     fi
 }
