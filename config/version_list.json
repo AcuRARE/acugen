@@ -7,5 +7,7 @@
     "quay.io/biocontainers/platypus-variant": "0.8.1.2--py27ha70a282_1",
     "pegi3s/samtools_bcftools": "1.9",
     "quay.io/biocontainers/survivor": "1.0.7--he513fc3_0",
-    "pegi3s/vcftools": "0.1.16"
+    "pegi3s/vcftools": "0.1.16",
+    "biocontainers/fastqc": "v0.11.9_cv7",
+    "molecular/conifer": "0.1.0"
 }
